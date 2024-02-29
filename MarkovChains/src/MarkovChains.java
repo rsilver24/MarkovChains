@@ -26,9 +26,10 @@ public class MarkovChains {
         while (!done){
             boolean subDone = false;
             String line = sc.nextLine();
-            if (line == null){
+            if (sc.hasNextLine() == false){
                 done = true;
             } else if (line != ""){
+                /**
                 line.replaceAll(",", "");
                 line.replaceAll(java.util.regex.Matcher.quoteReplacement("/"), "");
                 line.replaceAll(":", "");
@@ -36,6 +37,7 @@ public class MarkovChains {
                 line.replaceAll(java.util.regex.Matcher.quoteReplacement("("), "");
                 line.replaceAll(java.util.regex.Matcher.quoteReplacement(")"), "");
                 line.replaceAll("—", " ");
+                 **/
                 line.toLowerCase();
                 String restLine = line;
                 while (!subDone){
@@ -66,15 +68,15 @@ public class MarkovChains {
         for (int i = 0; i < numWords; i++){
             if (start){
                 current = keys.get(r.nextInt(keys.size()));
-                output.concat(current + " ");
+                output = output.concat(current + " ");
             } else{
                 String randomKey = keys.get(r.nextInt(0, keys.size()));
                 ArrayList<String> options = dictionary.get(randomKey);
                 String randomValue = options.get(r.nextInt(0, options.size()));
                 current = randomValue;
-                output.concat(current + " ");
+                output = output.concat(current + " ");
             }
-        } output.concat(".");
+        } output = output.concat(".");
         System.out.println("Your finished result is below:");
         System.out.println(output);
     }
