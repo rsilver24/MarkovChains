@@ -7,7 +7,7 @@ public class ArrayDictionary<T> {
     // Instance Data
 
     private ArrayList<T> keys;
-    private ArrayList<T> values;
+    private ArrayList<ArrayList<String>> values;
     private int size;
 
     // Constructors
@@ -20,21 +20,29 @@ public class ArrayDictionary<T> {
 
     // Methods
 
-    public void put(T key, T value){
-        keys.add(key);
-        values.add(value);
-        size++;
+    public void put(T key, String value){
+        if (keys.contains(key)){
+            values.get(keys.indexOf(key)).add(value);
+        } else{
+            keys.add(key);
+            ArrayList<String> a = new ArrayList<>();
+            a.add(value);
+            values.add(a);
+            size++;
+        }
     }
 
-    public T get(T key){
+    public ArrayList<String> get(T key){
         int place = keys.indexOf(key);
-        return values.get(place);
+        if (place == -1){
+            return null;
+        } return values.get(place);
     }
 
-    public T remove(T key){
+    public ArrayList<String> remove(T key){
         int place = keys.indexOf(key);
         keys.remove(place);
-        T value = values.get(place);
+        ArrayList<String> value = values.get(place);
         values.remove(place);
         size--;
         return value;
@@ -52,19 +60,5 @@ public class ArrayDictionary<T> {
 
     public int size(){
         return size;
-    }
-
-    public Collection<T> keys(){
-        Collection<T> c = new ArrayList();
-        for (int i = 0; i < size; i++){
-            c.add(keys.get(i));
-        } return c;
-    }
-
-    public Collection<T> values(){
-        Collection<T> c = new ArrayList();
-        for (int i = 0; i < size; i++){
-            c.add(values.get(i));
-        } return c;
     }
 }
